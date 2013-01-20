@@ -19,9 +19,77 @@ namespace Project423
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        #region /******************************** Properties *****************************/
+
+        public DeviceTree DeviceTree
+        {
+            get
+            {
+                return deviceTree;
+            }
+        }
+
+        public ViewDeviceTabControl ViewDeviceTabControl
+        {
+            get
+            {
+                return viewDeviceTabControl;
+            }
+        }
+
+        public bool ShowDeviceCrudPanel
+        {
+            set
+            {
+                deviceCrudPanels.Visibility = value?Visibility.Visible:Visibility.Hidden;                
+            }
+        }
+
+        public bool ShowCrudFolder
+        {
+            set
+            {
+                ShowDeviceCrudPanel = value;
+                crudFodler.Visibility = value ? Visibility.Visible : Visibility.Hidden;                     
+            }
+        }
+
+        public bool ShowCrudDevice
+        {
+            set
+            {
+                ShowDeviceCrudPanel = value;
+                crudDevice.Visibility = value ? Visibility.Visible : Visibility.Hidden;                     
+            }
+        }
+
+        #endregion
+
+        #region /********************* Instance ********************************/
+
+        static MainWindow _instance;
+        public static MainWindow Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            _instance = this;
+
+        }
+
+        #endregion
+
+        public void ViewDevice()
+        {
+
         }
     }
 }

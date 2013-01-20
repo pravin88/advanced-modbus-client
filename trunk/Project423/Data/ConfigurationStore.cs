@@ -116,7 +116,7 @@ namespace Project423
         /// <summary>
         /// Returns the next device id to use
         /// </summary>
-        public int nextAvailableDeviceId()
+        public static int nextAvailableDeviceId()
         {
             int nextAvailableId = 0;
 

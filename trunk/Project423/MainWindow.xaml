@@ -4,8 +4,23 @@
         xmlns:data="clr-namespace:Project423"
         Title="MainWindow">
     <Grid>
-        <data:DeviceTree x:Name="deviceTree">
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <data:DeviceTree x:Name="deviceTree" Grid.Column="0">
+            <data:DeviceTree.ContextMenu>
+                <data:ConfigurationDeviceTreeContextMenu/>
+            </data:DeviceTree.ContextMenu>
         </data:DeviceTree>
+        
+        <data:ViewDeviceTabControl x:Name="viewDeviceTabControl" Grid.Column="1">
+            
+        </data:ViewDeviceTabControl>
+        <Canvas Name="deviceCrudPanels" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Black" Opacity="0.5" Visibility="Hidden">
+            <data:CrudFolder x:Name="crudFodler" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden"/>
+            <data:CrudDevice x:Name="crudDevice" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden"/>
+        </Canvas>
     </Grid>
 </Window>
