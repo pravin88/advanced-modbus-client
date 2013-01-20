@@ -22,6 +22,13 @@ namespace Project423
             set;
         }
 
+        // RegisterType of all the registers in the RegisterValueList
+        public EnumRegisterType RegisterType
+        {
+            get;
+            set;
+        }
+
         // List of register and values. One for each register
         public List<RegisterValue> RegisterValueList
         {

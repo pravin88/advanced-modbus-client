@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Windows.Media.Imaging;
 using System.IO;
 
-namespace Project423
+namespace Project423        
 {
     class ConfigTypeToImageSourceConverter : IValueConverter
     {
@@ -24,32 +24,26 @@ namespace Project423
                     imagePath = Directory.GetCurrentDirectory() + "\\images\\computer.jpg";
                     break;
                 case EnumConfigurationType.Folder:
-                    imagePath = Directory.GetCurrentDirectory() + "\\images\\folder.png";
+                    imagePath = Directory.GetCurrentDirectory() + "\\images\\folder.jpg";
                     break;
                 case EnumConfigurationType.RegisterGroup:
-                    imagePath = Directory.GetCurrentDirectory() + "\\images\\device.png";
+                    imagePath = Directory.GetCurrentDirectory() + "\\images\\device.jpg";
                     break;
             }
 
-            return CreateImage(imagePath);
+            return Utilities.CreateImage(imagePath);
         }
 
-        public object Convertback(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
         #endregion
 
-        #region /******************* image ******************/
-        private BitmapImage CreateImage(string path)
+        public static BitmapImage convert(EnumConfigurationType configType)
         {
-            BitmapImage myBitmapImage = new BitmapImage();
-            myBitmapImage.BeginInit();
-            myBitmapImage.UriSource = new Uri(path);
-            myBitmapImage.EndInit();
-            return myBitmapImage;
+            ConfigTypeToImageSourceConverter converter = new ConfigTypeToImageSourceConverter();
+            return (BitmapImage)converter.Convert(configType, typeof(BitmapImage), null, null);
         }
-
-        #endregion
     }
 }
