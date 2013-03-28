@@ -3,29 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Project423
+namespace Project423.Data
 {
-    public class Configuration
+    class RegisterValueDataModel
     {
-        public string DeviceName
+        public bool AutoRefreshEnable
         {
             get;
             set;
         }
 
-        // Defines the type of configuration the node represents
-        public EnumConfigurationType ConfigurationType
+        public int AutoRefreshInterval
         {
             get;
             set;
         }
 
-        // Register Group (address, value,..) this node represents
         public RegisterGroup RegisterGroup
         {
+            set;
+            get;
+        }
+
+        public string DeviceConnectionStatus
+        {
             get;
             set;
         }
 
+        public string FileStatus
+        {
+            get;
+            set;
+        }
     }
 }

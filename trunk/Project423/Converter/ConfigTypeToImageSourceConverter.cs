@@ -9,6 +9,10 @@ using System.IO;
 
 namespace Project423        
 {
+    /// <summary>
+    /// Converts a configuraiton Enumtype to its corresponding image
+    /// The image is for loading in tree view
+    /// </summary>
     class ConfigTypeToImageSourceConverter : IValueConverter
     {
         #region /*********************** Base class override **********************/

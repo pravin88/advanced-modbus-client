@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Project423.DeviceTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Project423="clr-namespace:Project423"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Project423:ConfigTypeToImageSourceConverter x:Key="typeImageConverter"/>
+
+        <LinearGradientBrush x:Key="silverWhiteBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Silver" Offset="0" />
+            <GradientStop Color="White" Offset="1" />
+        </LinearGradientBrush>
+    </UserControl.Resources>
+        <StackPanel Margin="0,5,0,5">
+            <StackPanel Orientation="Horizontal">
+            <Button Margin="5,0,0,0" Width="70" Command="{Binding AddDeviceCommand}" IsEnabled="False" Background="{StaticResource silverWhiteBackground}" Height="70">
+                <StackPanel>
+                    <Image />
+                    <TextBox Text="Add Device"></TextBox>
+                </StackPanel>
+            </Button>
+            <Button Margin="5,0,0,0" Width="70" Command="{Binding AddFolderCommand}" Background="{StaticResource silverWhiteBackground}" IsEnabled="False" Height="70">
+                <StackPanel>
+                    <Image />
+                    <TextBox Text="Add Folder"></TextBox>
+                </StackPanel>
+            </Button>
+            <Button Margin="5,0,0,0" Width="70" Command="{Binding DeleteCommand}" Background="{StaticResource silverWhiteBackground}" IsEnabled="False" Height="70">
+                <StackPanel>
+                    <Image />
+                    <TextBox Text="Delete"></TextBox>
+                </StackPanel>
+            </Button>
+            <Button Margin="5,0,0,0" Width="70" Command="{Binding ViewDeviceCommand}" Background="{StaticResource silverWhiteBackground}" IsEnabled="False" Height="70">
+                <StackPanel>
+                    <Image />
+                    <TextBox Text="View Device"></TextBox>
+                </StackPanel>
+            </Button>
+            </StackPanel>
+            <TreeView Name="tv" ItemsSource="{Binding Path=ListDeviceTreeModel}" MouseDown="tree_MouseDown" Background="Transparent" >
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=ListDeviceTreeModel}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Path=ConfigurationType, Converter={StaticResource typeImageConverter}}"/>
+                            <TextBlock Text="{Binding Path=DeviceName}" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            <TreeView.ContextMenu>
+                <Project423:ConfigurationDeviceTreeContextMenu x:Name="contextMenu"/>
+            </TreeView.ContextMenu>
+        </TreeView>
+        </StackPanel>
+
+</UserControl>

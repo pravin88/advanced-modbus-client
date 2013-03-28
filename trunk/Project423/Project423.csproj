@@ -54,6 +54,12 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\library\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="WSMBT">
+      <HintPath>..\library\WSMBT.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -62,36 +68,52 @@
     </ApplicationDefinition>
     <Compile Include="ContextMenu\ConfigurationDeviceTreeContextMenu.cs" />
     <Compile Include="Converter\ConfigTypeToImageSourceConverter.cs" />
-    <Compile Include="UserControls\CrudDevice.xaml.cs">
-      <DependentUpon>CrudDevice.xaml</DependentUpon>
+    <Compile Include="Data\RegisterGroup\AIRegisterGroup.cs" />
+    <Compile Include="Data\RegisterGroup\AORegisterGroup.cs" />
+    <Compile Include="Data\RegisterGroup\LORegisterGroup.cs" />
+    <Compile Include="Data\RegisterGroup\LIRegisterGroup.cs" />
+    <Compile Include="Data\RegisterGroup\FORegisterGroup.cs" />
+    <Compile Include="Data\RegisterGroup\FIRegisterGroup.cs" />
+    <Compile Include="Data\RegisterGroup\DORegisterGroup.cs" />
+    <Compile Include="Data\RegisterGroup\DIRegisterGroup.cs" />
+    <Compile Include="Data\RegisterValue\RegisterValue.cs" />
+    <Compile Include="Utilities\PropertyChangedHandler.cs" />
+    <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="Model\CrudFolderModel.cs" />
+    <Compile Include="Model\CrudDeviceModel.cs" />
+    <Compile Include="Model\DeviceTreeModel.cs" />
+    <Compile Include="Model\RegisterValueModel.cs" />
+    <Compile Include="ViewModel\RegisterGroupViewModel.cs" />
+    <Compile Include="ViewModel\CrudFolderViewModel.cs" />
+    <Compile Include="ViewModel\DeviceTreeViewModel.cs" />
+    <Compile Include="View\CrudDeviceView.xaml.cs">
+      <DependentUpon>CrudDeviceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CrudFolder.xaml.cs">
-      <DependentUpon>CrudFolder.xaml</DependentUpon>
+    <Compile Include="View\CrudFolderView.xaml.cs">
+      <DependentUpon>CrudFolderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\ConfigurationStore.cs" />
-    <Compile Include="Data\Device.cs" />
-    <Compile Include="UserControls\DeviceTree.xaml.cs">
-      <DependentUpon>DeviceTree.xaml</DependentUpon>
+    <Compile Include="View\DeviceTreeView.xaml.cs">
+      <DependentUpon>DeviceTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\EnumRegisterType.cs" />
-    <Compile Include="UserControls\RegisterValueControl.xaml.cs">
-      <DependentUpon>RegisterValueControl.xaml</DependentUpon>
+    <Compile Include="View\RegisterGroupView.xaml.cs">
+      <DependentUpon>RegisterGroupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ViewDeviceTabControl.xaml.cs">
+    <Compile Include="View\ViewDeviceTabControl.xaml.cs">
       <DependentUpon>ViewDeviceTabControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\TreeViewWithIcons.cs" />
     <Compile Include="Utilities\Utilities.cs" />
     <Compile Include="Utilities\XMLHelper.cs" />
-    <Page Include="UserControls\CrudDevice.xaml">
+    <Compile Include="ViewModel\CrudDeviceViewModel.cs" />
+    <Page Include="View\CrudDeviceView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\CrudFolder.xaml">
+    <Page Include="View\CrudFolderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\DeviceTree.xaml">
+    <Page Include="View\DeviceTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,17 +127,17 @@
     </Compile>
     <Compile Include="Data\Configuration.cs" />
     <Compile Include="Data\EnumConfigurationType.cs" />
-    <Compile Include="Data\RegisterGroup.cs" />
-    <Compile Include="Data\RegisterValue.cs" />
+    <Compile Include="Data\RegisterGroup\RegisterGroup.cs" />
+    <Compile Include="Data\RegisterValue\_RegisterValue.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\RegisterValueControl.xaml">
+    <Page Include="View\RegisterGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ViewDeviceTabControl.xaml">
+    <Page Include="View\ViewDeviceTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

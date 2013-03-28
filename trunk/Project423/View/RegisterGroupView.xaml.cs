@@ -17,19 +17,19 @@ namespace Project423
     /// <summary>
     /// Interaction logic for registerValueControl.xaml
     /// </summary>
-    public partial class RegisterValueControl : UserControl
+    public partial class RegisterGroupView : UserControl
     {
 
-        RegisterGroup _registerGroup;
-        public RegisterValueControl(int selectedDeviceId)
+
+        public RegisterGroupView(Configuration selectedDevice)
         {
 
             InitializeComponent();
 
-            _registerGroup = ConfigurationStore.getInstance().getConfiguration(selectedDeviceId).RegisterGroup;
 
-            //Content = this;
-            dataGrid.ItemsSource = _registerGroup.RegisterValueList;
+            DataContext = new RegisterGroupViewModel(selectedDevice.RegisterGroup);
+
+
         }
     }
 }
