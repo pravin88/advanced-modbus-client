@@ -15,7 +15,10 @@ namespace Project423
         private MenuItem addFolder;
         private MenuItem delete;
         private MenuItem viewDevice;
-        
+
+
+        private DeviceTreeView _deviceTreeView;
+
         public ConfigurationDeviceTreeContextMenu()
         {                    
             addDevice = new MenuItem();
@@ -41,74 +44,79 @@ namespace Project423
             this.Opened += new RoutedEventHandler(ContextMenuOpened_Click);
         }
 
+        public void init(DeviceTreeView deviceTreeView)
+        {
+            _deviceTreeView = deviceTreeView;
+        }
         #region /****************************** Context menu **********************************/
 
+        /// <summary>
+        /// Event handler when loading a new context menu.
+        /// Determines which menu items are enables / disabled
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ContextMenuOpened_Click(object sender, RoutedEventArgs e)
         {
             addDevice.IsEnabled = false;
             addFolder.IsEnabled = false;
             delete.IsEnabled = false;
             viewDevice.IsEnabled = false;
+            
+            updateMenuItemStatus();
 
+        }
 
-            if (MainWindow.Instance.DeviceTree != null && MainWindow.Instance.DeviceTree.SelectedTreeNode != null)
+        public void updateMenuItemStatus()
+        {
+            if (_deviceTreeView != null && _deviceTreeView.SelectedTreeNode != null)
             {
-                int deviceId = int.Parse(MainWindow.Instance.DeviceTree.SelectedTreeNode.Tag.ToString());
-                Configuration configuration = ConfigurationStore.getInstance().getConfiguration(deviceId);
-                
-                if (configuration.ConfigurationType == EnumConfigurationType.MyComputer)
+                DeviceTreeModel dtm = _deviceTreeView.SelectedTreeNode;
+
+                // Enable menu items for configuration type root
+                if (dtm.ConfigurationType == EnumConfigurationType.MyComputer)
                 {
                     addDevice.IsEnabled = true;
                     addFolder.IsEnabled = true;
                 }
-                else if (configuration.ConfigurationType == EnumConfigurationType.Folder )
+                // enable menu items for configuration type folder
+                else if (dtm.ConfigurationType == EnumConfigurationType.Folder)
                 {
                     delete.IsEnabled = true;
 
                     addDevice.IsEnabled = true;
                     addFolder.IsEnabled = true;
                 }
-                else if (configuration.ConfigurationType == EnumConfigurationType.RegisterGroup)
+                // enable menu utems for configuration type register group
+                else if (dtm.ConfigurationType == EnumConfigurationType.RegisterGroup)
                 {
                     delete.IsEnabled = true;
                     viewDevice.IsEnabled = true;
                 }
-                
-            }
 
+            }
         }
 
 
         private void AddNewDevice_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.ShowCrudDevice = true;
+            ((DeviceTreeViewModel)_deviceTreeView.DataContext).AddDevice();
+
         }
 
         private void AddNewFolder_Click(object sender, RoutedEventArgs e)
         {
-
-            MainWindow.Instance.ShowCrudFolder = true;
+            ((DeviceTreeViewModel)_deviceTreeView.DataContext).AddFolder();
         }
 
         private void DeleteDevice_Click(object sender, RoutedEventArgs e)
         {
-            int selectedNode = int.Parse(MainWindow.Instance.DeviceTree.SelectedTreeNode.Tag.ToString());
-
-            ConfigurationStore.getInstance().deleteConfiguration(selectedNode);
-
-            MainWindow.Instance.DeviceTree.updateTree();
+            ((DeviceTreeViewModel)_deviceTreeView.DataContext).Delete();
         }
 
         private void ViewDevice_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.Instance.DeviceTree != null && MainWindow.Instance.DeviceTree.SelectedTreeNode != null)
-            {
-                int deviceId = int.Parse(MainWindow.Instance.DeviceTree.SelectedTreeNode.Tag.ToString());
-                Configuration configuration = ConfigurationStore.getInstance().getConfiguration(deviceId);
-
-                MainWindow.Instance.ShowDeviceCrudPanel = false;
-                MainWindow.Instance.viewDeviceTabControl.showDevice(configuration);
-            }
+            ((DeviceTreeViewModel)_deviceTreeView.DataContext).viewDevice();
         }
 
         #endregion

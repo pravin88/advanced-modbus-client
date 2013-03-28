@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace Project423
 {
@@ -22,7 +23,7 @@ namespace Project423
 
         #region /******************************** Properties *****************************/
 
-        public DeviceTree DeviceTree
+        public DeviceTreeView DeviceTree
         {
             get
             {
@@ -42,7 +43,9 @@ namespace Project423
         {
             set
             {
-                deviceCrudPanels.Visibility = value?Visibility.Visible:Visibility.Hidden;                
+                deviceCrudPanels.Visibility = value?Visibility.Visible:Visibility.Hidden;
+                crudFolder.Visibility = Visibility.Hidden;
+                crudDevice.Visibility = Visibility.Hidden;
             }
         }
 
@@ -51,7 +54,7 @@ namespace Project423
             set
             {
                 ShowDeviceCrudPanel = value;
-                crudFodler.Visibility = value ? Visibility.Visible : Visibility.Hidden;                     
+                crudFolder.Visibility = value ? Visibility.Visible : Visibility.Hidden;                     
             }
         }
 
@@ -65,6 +68,7 @@ namespace Project423
         }
 
         #endregion
+
 
         #region /********************* Instance ********************************/
 
@@ -81,15 +85,29 @@ namespace Project423
         {
             InitializeComponent();
 
+            DataContext = this;
+            
+
             _instance = this;
 
         }
 
         #endregion
 
-        public void ViewDevice()
+        private void saveConfig_clicked(object sender, RoutedEventArgs e)
         {
-
+            DeviceTreeViewModel dtvm = (DeviceTreeViewModel)deviceTree.DataContext;
+            string xmlConfig = XMLHelper<List<DeviceTreeModel>>.objectToXml(dtvm.ListDeviceTreeModel);
+            XMLHelper<List<DeviceTreeModel>>.saveFile("config.xml", xmlConfig);
         }
+
+        private void loadConfig_clicked(object sender, RoutedEventArgs e)
+        {
+            string xmlConfig = XMLHelper<List<DeviceTreeModel>>.readFile("config.xml");
+
+            ((DeviceTreeViewModel)deviceTree.DataContext).ListDeviceTreeModel = XMLHelper<List<DeviceTreeModel>>.xmlToObject(xmlConfig);
+        }
+
+       
     }
 }
